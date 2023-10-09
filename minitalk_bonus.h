@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   minitalk_bonus.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sannagar <sannagar@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 18:50:01 by sannagar          #+#    #+#             */
-/*   Updated: 2023/09/14 18:52:59 by sannagar         ###   ########.fr       */
+/*   Created: 2023/10/09 20:22:42 by sannagar          #+#    #+#             */
+/*   Updated: 2023/10/10 00:27:30 by sannagar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#ifndef MINITALK_BONUS_H
+# define MINITALK_BONUS_H
 
-void	init_sig(int sig, void (*handler)(int, siginfo_t *, void *))
-{
-	struct sigaction	susr;
+# include <signal.h>
+# include "./Libft/libft.h"
+# include "./Printf/ft_printf.h"
 
-	susr.sa_sigaction = handler;
-	susr.sa_flags = SA_SIGINFO | SA_RESTART | SA_NODEFER;
-	sigemptyset(&susr.sa_mask);
-	if (sig == SIGUSR1)
-		sigaction(SIGUSR1, &susr, 0);
-	else if (sig == SIGUSR2)
-		sigaction(SIGUSR2, &susr, 0);
-}
+extern int	g_signal;
+void	send_c(char c, int pid);
+void	server_answer(int sig);
+void	send_bit(int pid, int bit);
+int		ft_utf_charlen(char c);
+void	send_utf_c(const char *c, int pid);
+char	*error_mess(char *message);
+
+#endif

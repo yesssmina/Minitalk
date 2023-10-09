@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sannagar <sannagar@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/03 23:57:03 by sannagar          #+#    #+#             */
-/*   Updated: 2023/10/10 00:39:25 by sannagar         ###   ########.fr       */
+/*   Created: 2023/10/09 20:03:11 by sannagar          #+#    #+#             */
+/*   Updated: 2023/10/10 00:32:32 by sannagar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
 int		g_signal = 0;
-
-char	*error_mess(char *message)
-{
-	ft_putstr_fd(message, 1);
-	exit(EXIT_FAILURE);
-}
 
 void	server_answer(int sig)
 {
@@ -46,7 +40,7 @@ void	send_bit(int pid, int bit)
 		if (g_signal == 1)
 			break ;
 		else if (g_signal == 2)
-			break ;
+			error_mess("Message received!\n");
 	}
 }
 
@@ -77,8 +71,8 @@ int	main(int ac, char **av)
 	signal(SIGUSR2, server_answer);
 	while (*message)
 	{
-		send_c(*message, pid);
-		message++;
+		send_utf_c(message, pid);
+		message += ft_utf_charlen(*message);
 	}
 	send_c('\0', pid);
 	return (EXIT_SUCCESS);
