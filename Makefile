@@ -83,6 +83,8 @@ clean:
 	@echo "\033[1;36m===>Minitalk: .o correctly cleaned\033[0m"
 
 fclean: clean
+	@make -s fclean -C ./Libft/
+	@make -s fclean -C ./Printf/
 	@rm -f $(NAME_SERVER) $(NAME_CLIENT) $(BONUS_SERVER) $(BONUS_CLIENT)
 	@rm -f $(LIBFT)
 	@rm -f $(PRINTF)
